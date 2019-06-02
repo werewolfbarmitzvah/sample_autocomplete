@@ -13,6 +13,13 @@ In reality, it would probably be comprised of of a few services (user service, p
 
 I try to apply the theory of the test automation pyramid (https://martinfowler.com/articles/practical-test-pyramid.html) whenever possible. This involves building up your test automation with a larger amount of unit and integration/component/service testing and a smaller amount of end-to-end UI tests.
 
+I would follow this approach for the autocomplete system:
+- Run unit tests first
+- Run automated integration/component/service tests
+- UI tests would be run against a build that has shown to have the required functionality coverage and test success rate on the unit and systems test level
+- Any manual testing could procede after the automated UI tests
+- In my experience, most performance type tests require a little more work in setting up testing infrastructure. These could be run ad hocly as part of the development phase before release but not as part of a CI pipeline (possibly being included as part of a CI pipeline in the future)
+
 ***Tests***:
 
 Some possible service tests could be for:
@@ -33,7 +40,12 @@ A few UI tests could be:
 - Navigation from a search page to the results page
 - If I enter an invalid word, does the app alert me to a possible alternative search?
 
-For this project I will be writing a pseudocode example test for an end-to-end service side test that makes a request via the gateway API and verifies a result. The only component not involved is a UI. 
+A few performance type tests could be:
+- Latency of returned response from the server to the client
+- How does the system handle the load of many requests in a distributed environment?
+- How does the system handle the unexpected outage? If a service goes down, does the system handle that by bringing another one up?
+
+For this project I will be writing a pseudocode example test for an end-to-end service side test that makes a request via the gateway API and verifies a result. The only component not involved is a UI. Since there is not real system (there are no unit tests or component tests), this would provide a nice "bang for you buck" in a situation where those are still in progress (i.e. mocking components are being worked on)
 
 ***Tools***:
 
