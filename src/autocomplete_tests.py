@@ -21,6 +21,7 @@ def test_ten_results_returned(delete_previous_db_record):
     assert_that(request.result.status, equal_to('200'))
 
     """
-    I'm assuming the json object uses a list to contain the
+    I'm assuming the json object uses a list to contain
+    the results
     """
     assert_that(len(request.result.results, equal_to(10)))
